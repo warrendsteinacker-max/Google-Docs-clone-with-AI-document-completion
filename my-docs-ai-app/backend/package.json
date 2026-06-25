@@ -1,0 +1,17 @@
+{
+  "name": "my-docs-ai-app-backend",
+  "version": "1.0.0",
+  "description": "Backend API for my-docs-ai-app",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
