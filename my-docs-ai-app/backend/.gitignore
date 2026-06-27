@@ -6,3 +6,8 @@ dist/
 build/
 *.log
 .vercel
+
+
+node_modules/
+.env
+.vercel
