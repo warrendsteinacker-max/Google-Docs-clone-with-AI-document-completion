@@ -1,33 +1,60 @@
-const letters = true ? ["a", "b", "c"] : undefined;
 
-const nums = true ? [1, 2, 3] : undefined;
 
-const len = 10
 
-const makep = function(letters, nums, len) {
 
-    if(!letters || !nums){
-        throw new Error("must input letters and nums to be used")
+
+const quary = [
+
+    {
+        name: "apple",
+        count: 3
+    },
+    {
+        name: "banana",
+        count: 5
+    }
+]
+
+const searchterm = "a"
+
+
+
+function searchf(quary, searchterm, ...rest){
+
+    if(!quary || !searchterm){
+        throw new Error("need quary and searchterm");
     }
 
-    let result = [];
+    if(!Array.isArray(quary) || typeof searchterm !== "string"){
+        throw new Error("need quary to be array and searchterm to be string");
+    }
 
-    letters.concat(nums).sort(() => Math.random() - 0.5).forEach((item, index) => {
+    if(rest){
 
+        let pquary 
 
-        if(index < len + 1){
-            result.push(item)
+        for(let i = 0, len = rest.length; i < len; i++){
+            pquary = quary[rest[i]];
+            console.log(pquary);
         }
+
+        const search = pquary.filter((item) => {
+        return item.toLowerCase().includes(searchterm.toLowerCase());
     })
 
-    return result.join("")
+    return search;
 
+    }
+
+    const search = quary.filter((item) => {
+        return item.toLowerCase().includes(searchterm.toLowerCase());
+    })
+
+    return search;
 }
 
 
-const pass = makep(letters, nums, len)
-
-console.log(pass)
+console.log(searchf(quary, searchterm, "name"))
 
 
 
