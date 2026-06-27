@@ -1,45 +1,38 @@
-class Me {
+const letters = true ? ["a", "b", "c"] : undefined;
 
-    me = "warren"
+const nums = true ? [1, 2, 3] : undefined;
 
+const len = 10
 
-    fnget() {
-        console.log(this.me)
+const makep = function(letters, nums, len) {
+
+    if(!letters || !nums){
+        throw new Error("must input letters and nums to be used")
     }
 
-    sayHello() {
-        console.log("hello" + " " + this.me)
-    }
-}
+    let result = [];
 
-const person = new Me
-
-person.fnget()
-
-person.sayHello()
+    letters.concat(nums).sort(() => Math.random() - 0.5).forEach((item, index) => {
 
 
+        if(index < len + 1){
+            result.push(item)
+        }
+    })
 
-Array.prototype.myMap = function(fn) {
+    return result.join("")
 
-if(typeof fn !== "function"){
-    throw new Error("Argument must be a function")
-}
-
-console.log(this)
-
-let result = []
-
-    for (let i = 0; i <this.length; i++){
-        result.push(fn(this[i], i, this))
-    }
-
-    return result
 }
 
 
-const ar = [1,2,3,4]
+const pass = makep(letters, nums, len)
 
-const newar = ar.myMap((item) => {return item + 1})
+console.log(pass)
 
-console.log(newar)
+
+
+
+
+
+
+
