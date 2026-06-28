@@ -12,7 +12,7 @@
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: #f5f5f5;
+      background: #f5f5f5; display: "flex"; justify-content: "center"; align-items: "center"; height: "100vh"; position: "relative"
     }
     .container {
       max-width: 1200px;
@@ -20,15 +20,26 @@
       padding: 20px;
     }
     h1 {
-      color: #333;
       margin-bottom: 20px;
     }
   </style>
 </head>
-<body>
-  <div class="container">
-    <h1>Welcome to My Docs AI App</h1>
-    <p>Frontend is ready</p>
-  </div>
+<body style="display: flex; justify-content: center; align-items: center; height: 100vh; position: relative">
+
+    <div style="width: fit-content; height: fit-content; border: 5px solid black; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; grid-template-rows: repeat(3, 1fr);">
+
+       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
+
+    </div>
+
+
 </body>
 </html>
