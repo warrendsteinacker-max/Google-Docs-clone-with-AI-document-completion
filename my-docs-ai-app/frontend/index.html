@@ -28,17 +28,104 @@
 
     <div style="width: fit-content; height: fit-content; border: 5px solid black; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; grid-template-rows: repeat(3, 1fr);">
 
-       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
-       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
-       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
-       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
-       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
-       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
-       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
-       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
-       <div style="border: 5px solid black; width: 100px; height: 100px;"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;" id="0" class="box" onclick="cfunc(event)"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;" id="1" class="box" onclick="cfunc(event)"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;" id="2" class="box" onclick="cfunc(event)"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;" id="3" class="box" onclick="cfunc(event)"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;" id="4" class="box" onclick="cfunc(event)"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;" id="5" class="box" onclick="cfunc(event)"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;" id="6" class="box" onclick="cfunc(event)"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;" id="7" class="box" onclick="cfunc(event)"></div>
+       <div style="border: 5px solid black; width: 100px; height: 100px;" id="8" class="box" onclick="cfunc(event)"></div>
 
     </div>
+
+
+
+<script>
+
+    const win = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]]
+    let tracking = Array(9).fill(null)
+    console.log(tracking)
+    let stat = "X";
+    let plays = 0
+
+
+
+    function checktie(count){
+
+        if(count === 8){
+            alert("there was a tie")
+                tracking = Array(9).fill(null)
+
+                plays = 0
+
+                setTimeout(() => {
+                    document.querySelectorAll(".box").forEach((item) => {
+                        item.textContent = ""
+                    })
+                }, 2000)
+        }
+
+    }
+
+
+
+    function checkwin(){
+
+        for(let i = 0; i < 8; i++){
+            let winp = win[i]
+            if((tracking[winp[0]] === "X" && tracking[winp[1]] === "X" && tracking[winp[2]] === "X") || (tracking[winp[0]] === "O" && tracking[winp[1]] === "O" && tracking[winp[2]] === "O")){
+
+                stat = stat === "X" ? "O" : "X"
+                console.log("hello")
+                alert(stat + " " + "wins")
+                tracking = Array(9).fill(null)
+                plays = 0
+
+                setTimeout(() => {
+                    document.querySelectorAll(".box").forEach((item) => {
+                        item.textContent = ""
+                    })
+                }, 2000)
+            }
+        }
+
+    }
+
+    function cfunc(event){
+
+        if(tracking[Number(event.target.id)]){
+            return
+        }
+
+        else if(stat === "X"){
+            stat = "O"
+            event.target.textContent = "X"
+            tracking[Number(event.target.id)] = "X"
+            plays = plays + 1
+            setTimeout(() => {
+                checkwin()
+                checktie(plays)
+            }, 100)
+        }
+
+
+        else if(stat === "O"){
+            stat = "X"
+            event.target.textContent = "O"
+            tracking[Number(event.target.id)] = "O"
+            plays = plays + 1
+            setTimeout(() => {
+                checkwin()
+                checktie(plays)
+            }, 100)
+        }
+
+
+    }
+
+</script>
 
 
 </body>
