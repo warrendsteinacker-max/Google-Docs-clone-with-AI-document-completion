@@ -112,6 +112,7 @@
 import express from "express"
 import path from "path"
 import { fileURLToPath } from "url"
+import makef from "./controller.js"
 
 
 const app = express()
@@ -126,12 +127,11 @@ app.post("/server", (req, res) => {
     res.json({ message: "Data received successfully" })
 })
 
-app.get("/server", (req, res) => {
+app.get("/server", makef)
 
-    res.sendFile(path.join(__dirname, "index.html"))
-
+app.get("/m", (req, res) => {
+    res.redirect("/server")
 })
-
 
 app.listen(3000, () => console.log("on port 3000"))
 
