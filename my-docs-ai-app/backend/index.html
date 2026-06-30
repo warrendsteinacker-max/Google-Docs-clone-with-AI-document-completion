@@ -48,19 +48,25 @@
 
      const div = document.createElement("div")
 
-     div.style="border: 1px solid black; padding: 10px; margin: 5px; width: 300px; height: auto; border-radius: 5px;"
+     div.style="display: flex; flex-direction: column; border: 1px solid black; padding: 10px; margin: 5px; width: 300px; height: auto; border-radius: 5px;"
 
     div.id = i
 
-    const title = document.createElement("h1").textContent = data[i].title
+    const title = document.createElement("h1")
 
-    const dep = document.createElement("p").textContent = data[i].dep
+    const dep = document.createElement("p")
+
+    dep.textContent = data[i].dep
+    dep.style = "margin: 20px; font-size: 10px"
+    title.textContent = data[i].title
+    title.style = "margin: 20px; font-size: 25px"
+ 
 
     const delb = document.createElement("button")
 
     delb.textContent = "delete"
 
-    delb.onclick = del()
+    delb.onclick = function (event) {del(event)}
 
     div.append(title)
     div.append(dep)
@@ -75,7 +81,9 @@
 
     function del(event) {
 
-        let newd = data.filter((item, index) => index !== event.target.id)
+        let newd = data.filter((item, index) => index !== Number(event.target.id))
+
+        console.log(newd)
 
         const dd = [...newd]
 
@@ -104,8 +112,8 @@
 
 
         let setd = {
-            title: val,
-            dep: val2
+            title: val = val !== undefined ? val:"",
+            dep: val2 = val2 !== undefined ? val2:""
         }
 
         const dd = [...d, setd]
