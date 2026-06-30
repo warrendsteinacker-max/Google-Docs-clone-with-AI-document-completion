@@ -109,7 +109,31 @@
 // console.log(makeDtoSN(dec))
 
 
+import express from "express"
+import path from "path"
+import { fileURLToPath } from "url"
 
+
+const app = express()
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+app.use(express.json())
+
+
+app.post("/server", (req, res) => {
+    console.log(req.body)
+    res.json({ message: "Data received successfully" })
+})
+
+app.get("/server", (req, res) => {
+
+    res.sendFile(path.join(__dirname, "index.html"))
+
+})
+
+
+app.listen(3000, () => console.log("on port 3000"))
 
 
 
