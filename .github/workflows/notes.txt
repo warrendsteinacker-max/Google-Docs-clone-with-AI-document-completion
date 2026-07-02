@@ -30,8 +30,8 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v4
 
-      # 2. Inject your API key directly into your HTML file before publishing
-      - name: Inject Secrets
+      # 2. Inject environment variables/keys into the source files before building
+      - name: Inject backend URL and Secrets
         working-directory: my-docs-ai-app/frontend
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -40,12 +40,19 @@ jobs:
             sed -i "s|__GEMINI_API_KEY__|${GEMINI_API_KEY}|g" index.html
           fi
 
-      # 3. Upload your raw frontend folder directly (no npm build needed!)
+      # 3. Step into the directory, install dependencies, and run production build
+      - name: Build Frontend
+        working-directory: my-docs-ai-app/frontend
+        run: |
+          npm install
+          npm run build
+
+      # 4. Upload Vite's production-ready build directory (dist)
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: my-docs-ai-app/frontend
+          path: my-docs-ai-app/frontend/dist
 
-      # 4. Deploy the files live
+      # 5. Deploy the uploaded artifact live to GitHub Pages
       - id: deployment
         uses: actions/deploy-pages@v4
