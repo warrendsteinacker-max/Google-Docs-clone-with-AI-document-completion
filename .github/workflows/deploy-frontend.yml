@@ -31,7 +31,7 @@ jobs:
           API_BASE_URL: ${{ vars.GEMINI_API_KEY }}
         run: |
           mkdir -p dist
-          cp -r frontend/* dist/
+          cp -r my-docs-ai-app/frontend/* dist/
           if [ -n "$GEMINI_API_KEY" ]; then
             sed -i "s|__GEMINI_API_KEY__|${GEMINI_API_KEY}|g" dist/index.html
           fi
