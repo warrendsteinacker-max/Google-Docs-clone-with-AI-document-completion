@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'frontend/**'
+      - 'my-docs-ai-app/frontend/**'
       - '.github/workflows/deploy-frontend.yml'
   workflow_dispatch:
 
