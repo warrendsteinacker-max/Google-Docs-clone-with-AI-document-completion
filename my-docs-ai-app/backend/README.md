@@ -1,25 +1,20 @@
-# Backend API
+# Backend — Page-by-Page AI Fill API
 
-Express backend server for my-docs-ai-app.
+## Local dev
+cd backend && npm install
+cp .env.example .env   # add your Gemini key
+npm run dev             # http://localhost:3001
 
-## Setup
+## Deploy
+cd backend && vercel --prod
+# Then in Vercel dashboard → Settings → Environment Variables:
+# add GEMINI_API_KEY, then redeploy
 
-```bash
-npm install
-```
+## Endpoints
+GET  /api/health
+POST /api/fill/page   { apiKey?, pageHtml, pageIndex, totalPages, history? }
+                       → { filledHtml, historyAppend }
+POST /api/stream       { apiKey?, pageHtml, pageIndex, totalPages, history? }
+                       → text/event-stream of the filled HTML, token by token
 
-## Development
-
-```bash
-npm run dev
-```
-
-## Production
-
-```bash
-npm start
-```
-
-## Environment Variables
-
-See `.env.example` for required environment variables.
+`apiKey` is optional everywhere — omit to use the server's default GEMINI_API_KEY.

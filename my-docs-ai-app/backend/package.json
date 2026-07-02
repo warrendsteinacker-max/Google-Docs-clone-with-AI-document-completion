@@ -1,20 +1,18 @@
 {
-  "name": "my-docs-ai-app-backend",
-  "version": "1.0.0",
-  "description": "Backend API for my-docs-ai-app",
+  "name": "docs-ai-backend",
+  "version": "1.1.0",
+  "description": "Page-by-page Gemini fill API — Express + Vercel Edge",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "start": "node server.js",
-    "start:secserver": "node secserver.js",
-    "dev": "nodemon server.js"
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^4.22.2",
-    "express-rate-limit": "^8.5.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
+    "express-rate-limit": "^7.5.1"
   }
 }

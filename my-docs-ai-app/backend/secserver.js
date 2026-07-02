@@ -113,6 +113,7 @@ import express from "express"
 import path from "path"
 import { fileURLToPath } from "url"
 import makef from "./controller.js"
+import fs from "fs"
 
 
 const app = express()
@@ -122,15 +123,19 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 app.use(express.json())
 
 
-app.post("/server", (req, res) => {
-    console.log(req.body)
-    res.json({ message: "Data received successfully" })
-})
+
 
 app.get("/server", makef)
 
 app.get("/m", (req, res) => {
-    res.redirect("/server")
+
+    fs.mkdir(path.join(__dirname, "new"), (err) => {
+        if(err){
+            res.send("bad")
+            console.error(err.message)
+        }
+    })
+
 })
 
 app.listen(3000, () => console.log("on port 3000"))
