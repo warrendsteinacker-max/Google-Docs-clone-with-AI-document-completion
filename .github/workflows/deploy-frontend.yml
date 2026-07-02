@@ -26,6 +26,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+
+
+      # 1. Step into the correct directory, install packages, and build the Vite app
+      - name: Build Frontend
+        working-directory: my-docs-ai-app/frontend
+        run: |
+          npm install
+          npm run build
+
+      # 2. Upload the correct build output folder (Vite defaults to 'dist' inside the project folder)
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: my-docs-ai-app/frontend/dist
+
+
       - name: Inject backend URL
         env:
           API_BASE_URL: ${{ vars.GEMINI_API_KEY }}
