@@ -26,35 +26,33 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 1. Setup GitHub Pages configurations
+      - name: Configure Pages
+        uses: actions/configure-pages@v4
 
+      # 2. Inject environment variables/keys into the source files before building
+      - name: Inject backend URL and Secrets
+        working-directory: my-docs-ai-app/frontend
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ -n "$GEMINI_API_KEY" ]; then
+            sed -i "s|__GEMINI_API_KEY__|${GEMINI_API_KEY}|g" index.html
+          fi
 
-      # 1. Step into the correct directory, install packages, and build the Vite app
+      # 3. Step into the directory, install dependencies, and run production build
       - name: Build Frontend
         working-directory: my-docs-ai-app/frontend
         run: |
           npm install
           npm run build
 
-      # 2. Upload the correct build output folder (Vite defaults to 'dist' inside the project folder)
+      # 4. Upload Vite's production-ready build directory (dist)
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: my-docs-ai-app/frontend/dist
 
-
-      - name: Inject backend URL
-        env:
-          API_BASE_URL: ${{ vars.GEMINI_API_KEY }}
-        run: |
-          mkdir -p dist
-          cp -r my-docs-ai-app/frontend/* dist/
-          if [ -n "$GEMINI_API_KEY" ]; then
-            sed -i "s|__GEMINI_API_KEY__|${GEMINI_API_KEY}|g" dist/index.html
-          fi
-
-      - uses: actions/configure-pages@v4
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
+      # 5. Deploy the uploaded artifact live to GitHub Pages
       - id: deployment
         uses: actions/deploy-pages@v4
