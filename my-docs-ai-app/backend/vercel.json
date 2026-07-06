@@ -1,7 +1,10 @@
+
+
 {
   "version": 2,
   "rewrites": [
     { "source": "/api/health", "destination": "/api/index" },
+    { "source": "/api/fill/stream", "destination": "/api/stream" },
     { "source": "/api/fill/(.*)", "destination": "/api/index" }
   ]
 }
