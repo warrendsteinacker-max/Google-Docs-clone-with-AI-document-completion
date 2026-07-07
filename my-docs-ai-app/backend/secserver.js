@@ -109,36 +109,136 @@
 // console.log(makeDtoSN(dec))
 
 
+
 import express from "express"
+import mongoose from "mongoose"
+import jwt from "jsonwebtoken"
 import path from "path"
 import { fileURLToPath } from "url"
-import makef from "./controller.js"
 import fs from "fs"
+import makef from "./controller.js"
+
+
+// const app = express()
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+// app.use(express.json())
+
+
+
+
+// app.get("/server", makef)
+
+// app.get("/m", (req, res) => {
+
+//     fs.mkdir(path.join(__dirname, "new"), (err) => {
+//         if(err){
+//             res.send("bad")
+//             console.error(err.message)
+//         }
+//     })
+
+// })
+
+// app.listen(3000, () => console.log("on port 3000"))
+
+
+
+
+
+
+
+
+
+
+
+const pass = "123"
+let at
+
+
+
+// const atoken = new mongoose.Schema({
+//     At: {
+//         type: String
+//     }
+// })
+
+// const Atoken = mongoose.model("Atoken", atoken)
+
+const rtoken = new mongoose.Schema({
+
+    Rt: {
+        type: String
+    }
+    
+})
+
+const Rtoken = mongoose.model("Rtoken", rtoken)
+
 
 
 const app = express()
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+
+async function connect(){
+
+    try{
+        await mongoose.connect("mongodb+srv://warrendsteinacker_db_user:QWe0NCeaYw8agP48@cluster0.eqf4q9m.mongodb.net/")
+        console.log("connected")
+    }
+    catch(err){
+        console.log("not connected")
+        console.error(err.message)
+    }
+
+
+}
+
+connect()
 
 app.use(express.json())
 
+app.post("login", async (req, res) => {
 
+    const {pass} = req.body
+    if(pass === "123"){
+        at = jwt.sign({pass: pass}, "secret", {expiresIn: "1m"})
+        const rt = jwt.sign({pass: pass}, "secret", {expiresIn: "2m"})
 
+        await Rtoken.create({Rt: rt})
 
-app.get("/server", makef)
-
-app.get("/m", (req, res) => {
-
-    fs.mkdir(path.join(__dirname, "new"), (err) => {
-        if(err){
-            res.send("bad")
-            console.error(err.message)
-        }
-    })
+        return res.status(200).json({msg: "loged in"})
+    }
 
 })
 
+app.get("front", (req, res) => {
+    res.sendFile(path.join(__dirname, "/index.html"))
+})
+
+app.post("ref", async (req, res) => {
+    const getrt = await Rtoken.findOne({Rt: rt})
+
+    if(!getrt){
+        res.status(401).send("Invalid refresh token")
+    }
+
+    if(!at){
+        at = jwt.sign({pass: pass}, "secret", {expiresIn: "1m"})
+
+        return res.status(200).json({msg: "new access token created"})
+    }
+
+    return res.status(200).json({msg: "access token still valid"})
+})
+
+
 app.listen(3000, () => console.log("on port 3000"))
+
+
+
 
 
 

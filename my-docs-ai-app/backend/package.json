@@ -1,5 +1,6 @@
 {
   "name": "docs-ai-backend",
+  "type": "module",
   "version": "1.1.0",
   "description": "Page-by-page Gemini fill API — Express + Vercel Edge",
   "main": "server.js",
@@ -11,8 +12,11 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "express": "^4.22.2",
-    "express-rate-limit": "^7.5.1"
+    "express-rate-limit": "^7.5.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.7.3"
   }
 }
