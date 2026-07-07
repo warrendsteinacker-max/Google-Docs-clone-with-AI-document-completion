@@ -1,25 +1,13 @@
-
-
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "backend/api/index.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "backend/api/stream.mjs",
-      "use": "@vercel/edge"
-    }
-  ],
   "rewrites": [
     {
-      "source": "/api/stream",
-      "destination": "/backend/api/stream.mjs"
+      "source": "/api/fill/stream",
+      "destination": "/my-docs-ai-app/backend/api/stream.mjs"
     },
     {
-      "source": "/api/:path*",
-      "destination": "/backend/api/index.js"
+      "source": "/api/(.*)",
+      "destination": "/my-docs-ai-app/backend/api/index.js"
     }
   ]
 }
