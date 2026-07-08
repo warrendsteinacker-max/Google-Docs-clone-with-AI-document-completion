@@ -1,0 +1,555 @@
+
+
+
+
+
+// const quary = [
+
+//     {
+//         name: "apple",
+//         count: 3
+//     },
+//     {
+//         name: "banana",
+//         count: 5
+//     }
+// ]
+
+// const searchterm = "a"
+
+
+
+// function searchf(quary, searchterm, ...rest){
+
+//     if(!quary || !searchterm){
+//         throw new Error("need quary and searchterm");
+//     }
+
+//     if(!Array.isArray(quary) || typeof searchterm !== "string"){
+//         throw new Error("need quary to be array and searchterm to be string");
+//     }
+
+//     if(rest){
+
+//         let pquary 
+
+//         for(let i = 0, len = rest.length; i < len; i++){
+//             pquary = quary[rest[i]];
+//             console.log(pquary);
+//         }
+
+//         const search = pquary.filter((item) => {
+//         return item.toLowerCase().includes(searchterm.toLowerCase());
+//     })
+
+//     return search;
+
+//     }
+
+//     const search = quary.filter((item) => {
+//         return item.toLowerCase().includes(searchterm.toLowerCase());
+//     })
+
+//     return search;
+// }
+
+
+// console.log(searchf(quary, searchterm, "name"))
+
+
+
+
+// const dec = "1.03";
+
+// function makeDtoSN(dec) {
+
+//     const newDec = String(dec)
+//     console.log(newDec[0])
+
+//     if(newDec[0] === "0"){
+//         const secnewDec = newDec.split();
+//         console.log(secnewDec)
+//         const indexdec = secnewDec.indexOf(".");
+//         console.log()
+//         const firstdigI = secnewDec.forEach((item, index) => {
+//             if(Number(item) !== 0){
+//                 return index;
+//             }
+//         })[0]
+
+//         const power = String(firstdigI - indexdec)
+
+//         const partofdec = secnewDec.slice(firstdigI, secnewDec.length);
+//         console.log(partofdec)
+//         const newpartofD = partofdec.splice(0, 0, ".")
+//         console.log(newpartofD)
+
+//         return `${newpartofD.join("")}^-${power}`;
+//     }
+//     else{
+//         console.log("hello")
+//         const secnewDec = newDec.split();
+//         const indexdec = secnewDec.indexOf(".");
+//         if(indexdec === 1){
+//             return newDec.join("") + "^" + String(secnewDec.length - 1);
+//         }
+//         const power =  secnewDec.slice(0, indexdec).length;
+//         console.log(power)
+//         const partofdec = secnewDec.splice(indexdec, 1)
+//         const newpartofD = partofdec.splice(0, 0, ".")
+//          return `${newpartofD.join("")}^${power}`;
+//     }
+
+
+
+// }
+
+
+
+// console.log(makeDtoSN(dec))
+
+
+
+// import express from "express"
+// import mongoose from "mongoose"
+// import jwt from "jsonwebtoken"
+// import path from "path"
+// import { fileURLToPath } from "url"
+// import fs from "fs"
+// import makef from "./controller.js"
+
+
+// // const app = express()
+
+// const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+// // app.use(express.json())
+
+
+
+
+// // app.get("/server", makef)
+
+// // app.get("/m", (req, res) => {
+
+// //     fs.mkdir(path.join(__dirname, "new"), (err) => {
+// //         if(err){
+// //             res.send("bad")
+// //             console.error(err.message)
+// //         }
+// //     })
+
+// // })
+
+// // app.listen(3000, () => console.log("on port 3000"))
+
+
+
+
+
+
+
+
+
+
+
+// const pass = "123"
+// let at
+
+
+
+// // const atoken = new mongoose.Schema({
+// //     At: {
+// //         type: String
+// //     }
+// // })
+
+// // const Atoken = mongoose.model("Atoken", atoken)
+
+// const rtoken = new mongoose.Schema({
+
+//     Rt: {
+//         type: String
+//     }
+    
+// })
+
+// const Rtoken = mongoose.model("Rtoken", rtoken)
+
+
+
+// const app = express()
+
+
+
+// async function connect(){
+
+//     try{
+//         await mongoose.connect("mongodb+srv://warrendsteinacker_db_user:QWe0NCeaYw8agP48@cluster0.eqf4q9m.mongodb.net/")
+//         console.log("connected")
+//     }
+//     catch(err){
+//         console.log("not connected")
+//         console.error(err.message)
+//     }
+
+
+// }
+
+// connect()
+
+// app.use(express.json())
+
+// app.post("login", async (req, res) => {
+
+//     const {pass} = req.body
+//     if(pass === "123"){
+//         at = jwt.sign({pass: pass}, "secret", {expiresIn: "1m"})
+//         const rt = jwt.sign({pass: pass}, "secret", {expiresIn: "2m"})
+
+//         await Rtoken.create({Rt: rt})
+
+//         return res.status(200).json({msg: "loged in"})
+//     }
+
+// })
+
+// app.get("front", (req, res) => {
+//     res.sendFile(path.join(__dirname, "/index.html"))
+// })
+
+// app.post("ref", async (req, res) => {
+//     const getrt = await Rtoken.findOne({Rt: rt})
+
+//     if(!getrt){
+//         res.status(401).send("Invalid refresh token")
+//     }
+
+//     if(!at){
+//         at = jwt.sign({pass: pass}, "secret", {expiresIn: "1m"})
+
+//         return res.status(200).json({msg: "new access token created"})
+//     }
+
+//     return res.status(200).json({msg: "access token still valid"})
+// })
+
+
+// app.listen(3000, () => console.log("on port 3000"))
+
+
+
+
+
+
+// import express from "express"
+// import mongoose from "mongoose"
+// import jwt from "jsonwebtoken"
+// import path from "path"
+// import { fileURLToPath } from "url"
+// import fs from "fs"
+// import makef from "./controller.js"
+// import dotenv from "dotenv"
+// import bcrypt from "bcrypt"
+
+// dotenv.config()
+
+
+
+// async function connectDB(){
+
+//     try{
+//         await mongoose.connect("mongodb+srv://warrendsteinacker_db_user:QWe0NCeaYw8agP48@cluster0.eqf4q9m.mongodb.net/")
+//         console.log("connected")
+//     }
+//     catch(error){
+//         console.error(error.message)
+//     }
+
+// }
+
+// connectDB()
+
+// const users = new mongoose.Schema({
+    
+//     password: {
+//         type: String,
+//         required: true,
+//     },
+//     username: {
+//         type: String,
+//         required: true,
+//         unique: true
+//     },
+//     email: {
+//         type: String,
+//         required: true,
+//         unique: true
+//     },
+//     role: {
+//         type: String,
+//         default: "user",
+//         enum: ["user", "admin"]
+//     }
+  
+
+// })
+
+// const Users = mongoose.model("Users", users)
+
+// const app = express()
+
+// app.use(express.json())
+
+// function protect(req, res, next){
+//     if(req.headers.authorization && req.headers.authorization.startsWith("Bearer")){
+//         const token = req.headers.authorization.split(" ")[1]
+//         try{
+//             const d = jwt.verify(token, process.env.JWT_SECRET)
+
+
+            
+//                  req.user = d
+//                  next()
+            
+            
+//         }
+//         catch(error){
+//             console.error(error.message)
+//             res.status(500).json({msg: "Internal server error"})
+//         }
+//     }
+//     else{
+//         res.status(401).json({msg: "No token provided"})
+//     }
+// }
+
+
+// function adminCheck(req, res, next){
+//     if(req.user && req.user.role === "admin"){
+//         next()
+//     }
+
+//     res.status(403).json({msg: "Forbidden"})
+
+// }
+
+
+// app.post("/register", async(req, res) => {
+    
+//     try{
+//         const {username, password, email} = req.body
+
+//         const findu = await Users.findOne({username: username})
+
+//         if(findu){
+//             return res.status(409).json({msg: "Username already exists"})
+//         }
+
+//         const finde = await Users.findOne({email: email})
+
+//         if(finde){
+//             return res.status(409).json({msg: "Email already exists"})
+//         }
+
+//         const newpass = await bcrypt.hash(password, 10)
+
+//         const cuser = await Users.create({username, password: newpass, email})
+//         return res.status(201).json({msg: "User created successfully"})
+//     }
+//     catch(error){
+//         console.error(error.message)
+//         return res.status(500).json({msg: "Internal server error"})
+//     }
+    
+// })
+
+
+// app.post("/login", async(req, res) => {
+//     try{
+//         const {username, password} = req.body
+
+//         const findu = await Users.findOne({username: username})
+
+
+//         if(!findu){
+//             return res.status(401).json({msg: "Invalid username or password or email"})
+//         }
+
+  
+//         const comp = await bcrypt.compare(password, findu.password)
+
+//         if(!comp){
+//             return res.status(401).json({msg: "Invalid username or password or email"})
+//         }
+
+//         else{
+//             const token = jwt.sign({id: findu._id}, process.env.JWT_SECRET, {expiresIn: "1h"})
+//             return res.status(200).json({msg: "Login successful", token})
+//         }
+
+
+//     }
+//     catch(error){
+//         console.log(error.message)
+//         return res.status(500).json({msg: "Internal server error"})
+//     }
+
+
+// })
+
+// app.post("/logout", async(req, res) => {
+//     try{
+//         const token = req.headers.authorization?.split(" ")[1]
+
+//         if(!token){
+//             return res.status(401).json({msg: "No token provided"})
+//         }
+
+//         res.status(200).json({msg: "Logout successful"})
+//     }
+//     catch(error){
+//         console.error(error.message)
+//         res.status(500).json({msg: "Internal server error"})
+//     }
+// })
+
+
+// app.listen(3000, () => console.log("on port 3000"))
+
+
+
+
+
+import {useEffect, useState, useCallback, memo, useMemo} from "react"
+
+const ReactComp = memo(() => {
+
+
+    const [data, setData] = useState([])
+    const [E, setE] = useState(false)
+    const [L, setL] = useState(false)
+    const [Q, setQ] = useState("")
+
+
+    useEffect(() => {
+
+        async function fetchD(){
+
+            try{
+                setL(true)
+
+                const res = await fetch("url")
+
+                if(!res.ok){
+                    throw new Error("Network response was not ok")
+                }
+
+                setE(false)
+                const data =  await res.json()
+                setData([...data])
+            }
+            catch(error){
+                console.error(error.message)
+                setE(true)
+            }
+            finally{
+                setL(false)
+            }
+        
+        }
+        fetchD()
+    }, [])
+
+
+    const Dd = useMemo(() => { 
+        const newd = data.filter((item) => 
+             item.name.toLowerCase().includes(Q)
+        )
+
+        return newd
+        
+    }, [data, Q])
+
+
+
+    return (
+    
+    <>
+    <input onChange={(e) => setQ(e.target.value)} placeholder="Search..."/>
+    {Dd.map((item) => 
+        <div key={item._id} style={{width: "100px", height: "100px"}}>{item.name}</div>
+    )}
+    </>
+
+    )
+})
+
+
+const NewComp = () => {
+
+
+    const [data, setD] = useState([])
+
+    const [L, setL] = useState(false)
+
+    const [E, setE] = useState(false)
+
+    const [Sdata, setSd] = useState(data.filter((item, index) => index <= 5))
+
+
+    useEffect(() => {
+
+        async function fetchd(){
+            try{
+
+                setL(true)
+                const res = await fetch("url")
+                if(!res.ok){
+                    throw new Error("Network response was not ok")
+                }
+                const data = await res.json()
+                setD([...data])
+            }
+            catch(error){
+                setE(true)
+            }
+            finally{
+                setL(false)
+            }
+        }
+
+
+    }, [])
+
+
+    useEffect(() => {
+
+        function fetchdD(){
+            const {scrollTop, scrollHeight, clientHeight} = document.documentElement
+                setL(true)
+
+                setTimeout(() => {
+                    setL(false)
+                }, 1000)
+                if((scrollTop - scrollHeight - clientHeight > -100) && (!L)){    
+                    const newd = data.filter((item, index) => (index <= Sdata.length + 5))
+
+                    setSd([...newd])    
+
+            }
+        }
+
+        window.addEventListener("scroll", fetchdD)
+
+        return window.removeEventListener("scroll", fetchdD)
+
+
+    }, [Sdata])
+
+
+}
+
+
+
+
