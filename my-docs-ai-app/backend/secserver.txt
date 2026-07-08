@@ -525,24 +525,39 @@ const NewComp = () => {
 
     useEffect(() => {
 
-        function fetchdD(){
+        const fetchdD = () => {
             const {scrollTop, scrollHeight, clientHeight} = document.documentElement
-                setL(true)
+                
 
-                setTimeout(() => {
-                    setL(false)
-                }, 1000)
-                if((scrollTop - scrollHeight - clientHeight > -100) && (!L)){    
-                    const newd = data.filter((item, index) => (index <= Sdata.length + 5))
+  
+                if((scrollHeight - scrollTop - clientHeight <= 100) && (!ref.current)){    
+                    ref.current = true
+                    setTimeout(() => {    
+                        const newd = data.filter((item, index) => (index <= Sdata.length + 5))
 
-                    setSd([...newd])    
+                        ref.current = false
+
+                        setSd([...newd])    
+                    }, 1000)
 
             }
         }
 
-        window.addEventListener("scroll", fetchdD)
 
-        return window.removeEventListener("scroll", fetchdD)
+        const Thfunc = () => {
+            let timer
+
+            if(timer){return}
+
+            timer = setTimeout(() => {
+                fetchdD()
+                timer = nulll
+            }, 1000)
+        }
+
+        window.addEventListener("scroll", Thfunc)
+
+        return () => window.removeEventListener("scroll", Thfunc)
 
 
     }, [Sdata])
@@ -550,6 +565,75 @@ const NewComp = () => {
 
 }
 
+
+
+
+
+function dbonce(fn, delay = 1000){
+
+    let timer
+
+    return function(...args){
+
+        clearTimeout(timer)
+        timer = setTimeout(() => { 
+            fn(...args)
+            timer = null
+        }, delay)
+    }
+
+
+}
+
+const timer = useRef(null)
+
+const searchf = (e) => {
+   
+    const searcht = e.target.value
+
+    clearTimeout(timer.current)
+
+    timer.current = setTimeout(() => {
+    const newdata = data.filter((item) => item.name.toLowerCase().includes(searcht.toLowerCase()))
+
+    setD(newdata) 
+}, 1000)
+}
+
+
+
+    const {scrollHeight, scrollTop, clientHeight} = document.documentElement
+
+const useIscroll = (data) => {
+    
+
+
+    useEffect(() => {
+
+
+        const SendD = () => {
+            if((scrollHeight - scrollTop - clientHeight <= 100) || !ref.current){
+
+                ref.current = true
+                setTimeout(() => {
+                    ref.current = false
+
+                    const newd = data.filter((item, index) => index <= Sdata.length + 5)
+
+                    setSd([...newd])
+                }, 1000)
+            }
+                
+    }
+
+    window.addEventListener("scroll", SendD)
+
+    return () => window.removeEventListener("scroll", SendD)
+}, [Sdata])
+
+return {Sdata}
+
+}
 
 
 
