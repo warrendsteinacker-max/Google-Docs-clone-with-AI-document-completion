@@ -311,9 +311,14 @@ var pendFile = null, aiRunning = false, aiAbort = false;
 /* ─── Backend URL ─────────────────────────────────────────────
    GitHub Actions replaces __API_BASE_URL__ at deploy time.
    Falls back to localhost for local dev.                      */
+/* ── Backend URL resolution (3-tier fallback) ──────────────────
+   1. GitHub Actions injects real URL at deploy time
+   2. If that didn't happen, use the hardcoded Render URL below
+   3. Swap the fallback to http://localhost:10000 for local dev  */
+var RENDER_URL = 'https://google-docs-clone-with-ai-document.onrender.com';
 var API_BASE = (function(){
   var ph = '__API_BASE_URL__';
-  return (ph.indexOf('__') === -1) ? ph : 'http://localhost:10000';
+  return (ph.indexOf('__') === -1) ? ph : RENDER_URL;
 })();
 
 var GEMINI_DIRECT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
