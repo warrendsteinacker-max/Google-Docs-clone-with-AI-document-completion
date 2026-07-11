@@ -79,6 +79,10 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+app.get('/send', (req, res) => {
+    res.send("hello")
+})
+
 /* ─────────────────────────────────────────────────────────────────
    POST /api/fill/page   (non-streaming)
    Body: {
