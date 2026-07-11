@@ -11,7 +11,7 @@ require('dotenv').config(); // loads .env locally; Render uses dashboard env var
 
 const express     = require('express');
 const cors        = require('cors');
-const rateLimit   = require('express-rate-limit');
+// const rateLimit   = require('express-rate-limit');
 
 const app  = express();
 const PORT = process.env.PORT || 10000;
@@ -28,13 +28,13 @@ app.use(cors({
 app.use(express.json({ limit: '5mb' }));
 
 /* ── Rate limiting ── */
-app.use('/api/', rateLimit({
-  windowMs: 60_000,
-  max: 60,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { error: 'Too many requests, please wait a minute.' },
-}));
+// app.use('/api/', rateLimit({
+//   windowMs: 60_000,
+//   max: 60,
+//   standardHeaders: true,
+//   legacyHeaders: false,
+//   message: { error: 'Too many requests, please wait a minute.' },
+// }));
 
 /* ── Config ── */
 const DEFAULT_KEY    = process.env.GEMINI_API_KEY || null;
