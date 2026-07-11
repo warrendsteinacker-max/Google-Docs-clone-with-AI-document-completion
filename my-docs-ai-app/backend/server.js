@@ -17,7 +17,7 @@ const app  = express();
 const PORT = process.env.PORT || 10000;
 
 /* ── CORS ── */
-const allowedOrigin = process.env.ALLOWED_ORIGIN || '*';
+const allowedOrigin = '*';
 app.use(cors({
   origin: allowedOrigin,
   methods: ['GET', 'POST', 'OPTIONS'],
