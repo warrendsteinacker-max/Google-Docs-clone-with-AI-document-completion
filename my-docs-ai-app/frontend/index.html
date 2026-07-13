@@ -677,6 +677,29 @@ async function startFill(){
       lg('⚠ Chunk '+(i+1)+' skipped (no result).','warn');
     }
 
+  
+// Inside your loop after success:
+if (filledHtml) {
+  // Create a temporary container to turn the HTML string into actual DOM elements
+  var temp = document.createElement('div');
+  temp.innerHTML = filledHtml;
+  
+  // Replace the first active node with the new content, and clear out the rest of the chunk's nodes
+  if (chunk.nodes.length > 0) {
+    var firstNode = chunk.nodes[0];
+    firstNode.outerHTML = filledHtml;
+    
+    // Remove remaining elements in this chunk so they aren't duplicated
+    for (var n = 1; n < chunk.nodes.length; n++) {
+      if (chunk.nodes[n].parentNode) {
+        chunk.nodes[n].parentNode.removeChild(chunk.nodes[n]);
+      }
+    }
+  }
+  lg('✓ Chunk ' + (i + 1) + ' written to document.', 'ok');
+}
+  
+
     setProg(i+1,chunks.length);
 
     if(i<chunks.length-1&&!aiAbort)await sleep(700);
