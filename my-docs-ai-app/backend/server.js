@@ -149,7 +149,6 @@ app.post('/api/fill/page', async (req, res) => {
 
   } catch (e) {
     console.error('[/api/fill/page]', e.message);
-    res.status(502).json({ error: e.message });
     const geminiRes = await fetch(`${GEMINI_URL}?key=${encodeURIComponent(key)}`, {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -158,7 +157,9 @@ app.post('/api/fill/page', async (req, res) => {
         generationConfig: { temperature: 0.2, maxOutputTokens: 2048 },
       }),
     })
-    console.log(geminiRes)
+
+    
+    res.status(502).json({ error: e.message, aimsg: geminiRes });
   }
 });
 
